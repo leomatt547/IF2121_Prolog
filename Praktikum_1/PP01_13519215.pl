@@ -98,3 +98,38 @@ cucu(X,Y) :- anak(U,Y), anak(X,U).
 anaksulung(X) :-  \+(kakak(X,_)), anak(X, _).
 /*anak paling tua */
 anakbungsu(X) :-  \+(kakak(_,X)), anak(X, _).
+
+/* Bagian 2 */ 
+/* Deklarasi fakta */
+faktorial(0, 1).
+faktorial(N, X) :- 
+    N > 0,
+    Prev is N - 1,
+    faktorial(Prev, R),
+    X is R * N.
+
+gcd(A,0,A).
+gcd(A,B,X) :- (A<B), gcd(B,A,X).
+gcd(A,B,X) :- (A>B), (B>0),
+    R is A mod B, gcd(B,R,X).
+
+power(_,0,1).
+power(A,B,X) :- (A>0),(B>0),
+    C is B-1, power(A,C,R),
+    X is R*A.
+
+countDigit(0,1).
+countDigit(1,1).
+countDigit(A,X) :- (A>0),
+    R is (A // 10), countDigit(R,N),
+    X is N+1.
+
+foreach(Generator, Goal) :-
+    findall(Goal, Generator, Goals),
+    maplist(call, Goals).
+pyramid(N) :- pyramid(N, N-1).
+pyramid(0, _) :- nl.
+pyramid(N, K) :- N > 0, N1 is N - 1,
+                Q is N1 + 1,
+                foreach(between(1, Q, _), write('*')),
+                nl, pyramid(N1, K).
