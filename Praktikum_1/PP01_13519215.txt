@@ -1,0 +1,59 @@
+/*Untuk File .txt*/ 
+
+Bagian 1 
+
+a)
+Query: suami(X,nurbaya).
+X = william ? 
+yes
+
+b)
+Query: suami(X,nurbaya).
+X = william ? 
+yes
+
+c)
+Query:keponakan(faris,Y),pria(Y).
+Y = jovan ? 
+yes
+Y = zunan ?
+yes 
+
+d)
+Query:mertua(yoga,Y).
+Y = siti ? 
+yes
+
+e)
+Query:cucu(faris,Y),wanita(Y).
+Y = lisa?
+yes
+Y = asin ?
+yes
+
+f)
+Query:suami(_,siti), saudara(Y,_).
+Y = jovan?
+yes
+Y = zunan ?
+yes
+
+g)
+Query: anak(thajeb,V), menikah(V,X), saudara(X,Y), anak(Z,Y).
+V = nurbaya
+X = william
+Y = siti
+Z = faris ? 
+yes
+
+h)Query: wanita(X), anaksulung(X), anakbungsu(X).
+X = nurbaya ?
+yes
+
+i) pria(X), \+menikah(X,_).
+X = jovan ? ;
+X = zunan ? ;
+X = faris ? ;
+X = thajeb
+
+yes

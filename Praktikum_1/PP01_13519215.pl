@@ -1,47 +1,100 @@
-/*Untuk File .pl*/ 
+/*consult('D:/git/IF2121_Prolog/Praktikum_1/PP01_13519215').*/
+/*Untuk file .pl*/ 
 
 /* Bagian 1 */ 
-/* Deklarasi Fakta */
+/* Deklarasi fakta */
 
-/* X adalah pria */
-pria(X). 
-/*X adalah wanita */
-wanita(X).
-/*X berusia Y*/
-usia(X,Y).
-/*X menikah dengan Y*/
-menikah(X,Y).
-/*X adalah anak Y*/
-anak(X,Y).
-/*X adalah saudara kandung Y*/
-saudara(X,Y).
+/*pria */
+pria(yoga).
+pria(zayn).
+pria(padil).
+pria(jovan).
+pria(zunan).
+pria(farras).
+pria(william).
+pria(faris).
+pria(thajeb).
+/*wanita */
+wanita(lisa).
+wanita(asin).
+wanita(rikha).
+wanita(siti).
+wanita(nurbaya).
+/*X berusia y*/
+usia(yoga,71).
+usia(lisa,65).
+usia(zayn,56).
+usia(asin,51).
+usia(padli,58).
+usia(rikha,40).
+usia(jovan,24).
+usia(zunan,30).
+usia(farras,32).
+usia(siti,26).
+usia(william,28).
+usia(nurbaya,24).
+usia(faris,6).
+usia(thajeb,3).
+/*X menikah dengan y*/
+menikah(yoga,lisa).
+menikah(lisa,yoga).
+menikah(zayn,asin).
+menikah(asin,zayn).
+menikah(padil,rikha).
+menikah(rikha,padil).
+menikah(farras,siti).
+menikah(siti,farras).
+menikah(william,nurbaya).
+menikah(nurbaya,william).
+/*anak*/
+anak(faris,farras).
+anak(faris,siti).
+anak(farras,yoga).
+anak(farras,lisa).
+anak(zunan,yoga).
+anak(zunan,lisa).
+anak(jovan,yoga).
+anak(jovan,lisa).
+anak(thajeb,william).
+anak(thajeb,nurbaya).
+anak(siti,zayn).
+anak(siti,asin).
+anak(william,zayn).
+anak(william,asin).
+anak(nurbaya,padil).
+anak(nurbaya,rikha).
+/*saudara kandung y*/
+saudara(jovan,zunan).
+saudara(zunan, jonan).
+saudara(jovan,farras).
+saudara(farras,jovan).
+saudara(zunan,farras).
+saudara(farras,zunan).
+saudara(siti,william).
+saudara(william,siti).
 
-/* Deklarasi Rules */ 
-/* X adalah kakak dari Y (baik perempuan maupun lelaki) */ 
-kakak(X,Y) :- pria(X),saudara(X,Y).
-kakak(X,Y) :- wanita(X),saudara(X,Y).
-kakak(X,Y) :- not(kakak(Y,X)).
-/* X adalah keponakan dari Y */ 
-keponakan(X,Y) :- not(keponakan(Y,X)).
-keponakan(X,Y) :- bibi(X,Y).
-/* X adalah suami dari Y */
-suami(X,Y) :- menikah(X,Y),pria(X).
-suami(X,Y) :- not(suami(Y,X)).
-/* X adalah sepupu dari Y */
-sepupu(X,Y) :- not(sepupu(Y,X)).
-/* X adalah mertua dari Y */
-mertua(X,Y) :- not(mertua(Y,X)).
-/* X adalah mertua dari Y */
-bibi(X,Y) :- not(bibi(Y,X)).
-bibi(X,Y) :- keponakan(Y,X).
-/* X adalah cucu dari Y */
-cucu(X,Y) :- not(cucu(Y,X)).
-bibi(X,Y) :- keponakan(Y,X).
-/* X adalah anak paling tua */
-anaksulung(X) :- anak(X,Y)
-anaksulung(X) :- saudara(X,Y)
-anaksulung(X) :- not(anakbungsu(X))
-/* X adalah anak paling tua */
-anakbungsu(X) :- anak(X,Y)
-anakbungsu(X) :- saudara(X,Y)
-anakbungsu(X) :- not(anaksulung(X))
+/* Deklarasi rules */ 
+/*kakak dari y (baik perempuan maupun lelaki) */ 
+kakak(X,Y):- anak(X,U), anak(Y,U),
+    saudara(X,Y),
+    usia(X,W), usia(Y,Z), W>Z,!.
+/*keponakan dari y */ 
+keponakan(X,Y) :- anak(X,U), saudara(Y,U),
+    usia(X,W), usia(Y,Z), W<Z.
+/*suami dari y */
+suami(X,Y) :- pria(X),menikah(X,Y).
+/*sepupu dari y */
+sepupu(X,Y) :- anak(X,U), anak(Y,V), 
+    saudara(U,V).
+/*mertua dari y */
+mertua(X,Y) :- anak(U,X), menikah(U,Y).
+mertua(X,Y) :- anak(U,X), menikah(Y,U).
+/*mertua dari y */
+bibi(X,Y):- wanita(X),
+    anak(Y,Z), saudara(X,Z).
+/*cucu dari y */
+cucu(X,Y) :- anak(U,Y), anak(X,U).
+/*anak paling tua */
+anaksulung(X) :-  \+(kakak(X,_)), anak(X, _).
+/*anak paling tua */
+anakbungsu(X) :-  \+(kakak(_,X)), anak(X, _).
