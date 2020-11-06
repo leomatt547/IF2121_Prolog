@@ -127,9 +127,13 @@ countDigit(A,X) :- (A>0),
 foreach(Generator, Goal) :-
     findall(Goal, Generator, Goals),
     maplist(call, Goals).
-pyramid(N) :- pyramid(N, N-1).
-pyramid(0, _) :- nl.
-pyramid(N, K) :- N > 0, N1 is N - 1,
+createTriangle(N) :- createTriangle(N, N-1).
+createTriangle(0, _) :- nl.
+createTriangle(N, K) :- N > 0, N1 is N - 1,
                 Q is N1 + 1,
                 foreach(between(1, Q, _), write('*')),
-                nl, pyramid(N1, K).
+                nl, createTriangle(N1, K).
+
+/* Bagian 3 */ 
+/* Deklarasi fakta */
+

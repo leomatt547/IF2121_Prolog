@@ -57,3 +57,36 @@ X = faris ? ;
 X = thajeb
 
 yes
+
+
+Bagian 2
+
+1)
+Query: faktorial(3,X).
+X = 6 ?
+yes
+
+2)
+Query: gcd(8,20,X).
+X = 4 ? 
+yes
+
+3)
+Query: power(2,5,X).
+X = 32 ? 
+yes
+
+4)
+Query: countDigit(13519000,X).
+X = 8 ? 
+yes
+
+5)
+Query: createTriangle(5).
+*****
+****
+***
+**
+*
+true ? 
+(32 ms) yes
