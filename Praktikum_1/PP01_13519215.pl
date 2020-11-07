@@ -117,6 +117,9 @@ power(_,0,1).
 power(A,B,X) :- (A>0),(B>0),
     C is B-1, power(A,C,R),
     X is R*A.
+power(A,B,X) :- (A<0),(B>0),
+    C is B-1, power(A,C,R),
+    X is R*A.
 
 countDigit(0,1).
 countDigit(1,1).
@@ -136,4 +139,21 @@ createTriangle(N, K) :- N > 0, N1 is N - 1,
 
 /* Bagian 3 */ 
 /* Deklarasi fakta */
+push(E, [], [E]).
+push(E, [H | T], [H | Result]) :-
+    push(E, T, Result).
 
+pop([_ | T], T).
+pop([H | T], [H | Result]) :-
+    pop(T, Result).
+
+front([H | _], H).
+front([H | T], [H | Result]) :-
+    front(T, Result).
+
+back([X],X).
+back([_|T],X) :- back(T,X).
+
+concatenate([], [], 0, 0, Result).
+concatenate(Flist, Slist, X, Y, Result) :-
+/*consult('D:/git/IF2121_Prolog/Praktikum_1/PP01_13519215').*/
