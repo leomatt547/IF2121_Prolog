@@ -154,6 +154,27 @@ front([H | T], [H | Result]) :-
 back([X],X).
 back([_|T],X) :- back(T,X).
 
-concatenate([], [], 0, 0, Result).
-concatenate(Flist, Slist, X, Y, Result) :-
+take(N, _, Xs) :- N =< 0, !, N =:= 0, Xs = [].
+take(_, [], []).
+take(N, [X|Xs], [X|Ys]) :- M is N-1, take(M, Xs, Ys).
+
+con([],L1,L1).
+con([X|Tail],L2,[X|Tail1]):-
+    con(Tail,L2,Tail1).
+
+concatenate([], L1, 0, 0, L1).
+concatenate(Flist, Slist, X, Y, Result) :- 
+    take(X,Flist,M), take(Y,Slist,N),
+    con(M,N,Result).
+
+pushback([],L,L).
+   pushback([H|T],L2,[H|L3]) :- pushback(T,L2,L3).
+balik([],[]). 
+balik([X],[X]).
+balik([X|Xs],R) :- 
+  balik(Xs,T),        
+  pushback(T,[X],R).
+palindrom([]).
+palindrom(L):-
+    balik(L,L).
 /*consult('D:/git/IF2121_Prolog/Praktikum_1/PP01_13519215').*/
