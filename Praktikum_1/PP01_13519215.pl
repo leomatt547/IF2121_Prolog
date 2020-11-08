@@ -1,4 +1,4 @@
-/*consult('D:/git/IF2121_Prolog/Praktikum_1/PP01_13519215').*/
+/*Nama: Leonard Matheus, NIM: 13519215*/
 /*Untuk file .pl*/ 
 
 /* Bagian 1 */ 
@@ -196,4 +196,3 @@ ridge([]).
 ridge(A) :-
     kompres(A,X),
     operasi(X).
-/*consult('D:/git/IF2121_Prolog/Praktikum_1/PP01_13519215').*/
