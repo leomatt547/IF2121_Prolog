@@ -140,7 +140,7 @@ createTriangle(N, K) :- N > 0, N1 is N - 1,
 /* Bagian 3 */ 
 /* Deklarasi fakta */
 push(E, [], [E]).
-push(E, [H | T], [H | Result]) :-
+push(E, [H|T], [H | Result]) :-
     push(E, T, Result).
 
 pop([_ | T], T).
@@ -167,14 +167,33 @@ concatenate(Flist, Slist, X, Y, Result) :-
     take(X,Flist,M), take(Y,Slist,N),
     con(M,N,Result).
 
-pushback([],L,L).
-   pushback([H|T],L2,[H|L3]) :- pushback(T,L2,L3).
 balik([],[]). 
 balik([X],[X]).
 balik([X|Xs],R) :- 
   balik(Xs,T),        
-  pushback(T,[X],R).
+  push(X,T,R).
 palindrom([]).
 palindrom(L):-
     balik(L,L).
+
+/* Bonus */ 
+/* Deklarasi fakta */
+kompres([],[]).
+kompres([X],[X]).
+kompres([X,X|Xs],Zs) :- kompres([X|Xs],Zs).
+kompres([X,Y|Ys],[X|Zs]) :- X \= Y, kompres([Y|Ys],Zs).
+
+operasi([]).
+operasi(A) :- 
+    operasi(A, X), X > 0, write(X).
+dynamic(operasi).
+operasi([A, B, C], X) :- A > B, B < C, X is 1, !; X is 0, !.
+operasi([A|B], X) :- 
+    operasi(B, Y), 
+    (B = [C|D], D = [E|_], A > C, C < E, X is Y + 1; X is Y), !.
+
+ridge([]).
+ridge(A) :-
+    kompres(A,X),
+    operasi(X).
 /*consult('D:/git/IF2121_Prolog/Praktikum_1/PP01_13519215').*/
